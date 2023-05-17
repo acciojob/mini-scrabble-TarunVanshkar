@@ -1,28 +1,36 @@
 //your code here
-// let inputBox = document.getElementById("evaluatedText");
-// let h3Tag = document.getElementById("letterCount");
-// h3Tag.innerText = 0;
-// function renderCount(){
-//     h3Tag.innerText = inputBox.value.length + 1;
-// }
-// inputBox.addEventListener("keypress", renderCount);
-
-let inputBox = document.getElementById("evaluatedText");
-let h3Tag = document.getElementById("letterCount");
-h3Tag.innerText = 0;
-function renderCount() {
-    let text = inputBox.value;
-    // if(lastElement !== " ") {
-    // h3Tag.innerText = inputBox.value.length + 1;
-    const textArr = text.split("");
-    let wordCount = 1;
+function renderText(domElt, text) {
+    domElt.innerText = text;
+  }
+  
+  function handleWord(text) {
+    const textArr = text.split(" ");
+    let wordCount = 0;
   
     for (word of textArr) {
       if (/[a-zA-Z0-9]/.test(word)) {
         wordCount += 1;
       }
     }
-
-    h3Tag.innerText = wordCount
-}
-inputBox.addEventListener("keypress", renderCount);
+  
+    return wordCount;
+  }
+  
+  function handleChar(text) {
+    return text.length;
+  }
+  
+  function init() {
+    const textArea = document.querySelector("textarea");
+    const charDOM = document.querySelector("#letterCount");
+    const wordDOM = document.querySelector("#wordCount");
+  
+    textArea.addEventListener("input", (event) => {
+      const text = event.target.value.trim();
+  
+      renderText(wordDOM, handleWord(text));
+      renderText(charDOM, handleChar(text));
+    });
+  }
+  
+  init();
